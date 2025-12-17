@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "book": "Book Now"
+  },
+  "hero": {
+    "title": "Welcome to Her Clinic",
+    "subtitle": "Health and Wellness",
+    "description": "Experience premium beauty and wellness treatments by Dr. Reham Mohamed. Where elegance meets excellence.",
+    "cta": "Book Your Appointment",
+    "learn": "Learn More"
+  },
+  "about": {
+    "title": "About Dr. Reham Mohamed",
+    "subtitle": "Your Beauty & Wellness Expert",
+    "description": "Dr. Reham Mohamed is a distinguished professional in aesthetic medicine and wellness, dedicated to helping women feel confident and beautiful. With years of experience and a passion for excellence, Dr. Reham provides personalized care tailored to each client's unique needs.",
+    "experience": "Years of Experience",
+    "clients": "Happy Clients",
+    "treatments": "Treatments Offered"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Premium Beauty & Wellness Treatments",
+    "skinCare": {
+      "title": "Skin Care",
+      "description": "Advanced skin treatments including facials, chemical peels, and rejuvenation therapies for radiant, healthy skin."
+    },
+    "aesthetics": {
+      "title": "Aesthetic Treatments",
+      "description": "Non-surgical aesthetic procedures including fillers, Botox, and contouring for natural-looking results."
+    },
+    "laser": {
+      "title": "Laser Treatments",
+      "description": "State-of-the-art laser treatments for hair removal, skin resurfacing, and pigmentation correction."
+    },
+    "wellness": {
+      "title": "Wellness Programs",
+      "description": "Holistic wellness programs including nutritional guidance and vitamin therapy for overall health."
+    },
+    "body": {
+      "title": "Body Treatments",
+      "description": "Body contouring, cellulite reduction, and slimming treatments for your desired silhouette."
+    },
+    "hair": {
+      "title": "Hair Treatments",
+      "description": "Professional hair care including PRP therapy, mesotherapy, and specialized hair restoration treatments."
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Book Your Consultation Today",
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "service": "Service Interest",
+    "message": "Message",
+    "send": "Send Message",
+    "info": "Contact Information",
+    "location": "Location",
+    "hours": "Working Hours",
+    "hoursValue": "Sat - Thu: 10:00 AM - 8:00 PM"
+  },
+  "footer": {
+    "tagline": "Where Beauty Meets Wellness",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved"
+  }
+}
