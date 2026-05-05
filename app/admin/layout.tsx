@@ -1,7 +1,6 @@
 import './admin.css';
 import { Toaster } from 'sonner';
-import Sidebar from '@/components/admin/Sidebar';
-import TopBar from '@/components/admin/TopBar';
+import AdminShell from '@/components/admin/AdminShell';
 import { getProfile } from '@/lib/auth';
 
 export const metadata = {
@@ -27,13 +26,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         {!profile || profile.role !== 'admin' ? (
           <div className="min-h-screen flex items-center justify-center p-6">{children}</div>
         ) : (
-          <div className="flex">
-            <Sidebar />
-            <div className="flex-1 min-w-0">
-              <TopBar email={profile.email} />
-              <main className="p-6 lg:p-8 max-w-7xl mx-auto">{children}</main>
-            </div>
-          </div>
+          <AdminShell email={profile.email}>{children}</AdminShell>
         )}
       </body>
     </html>

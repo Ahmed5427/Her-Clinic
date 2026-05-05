@@ -66,7 +66,7 @@ export default async function SubmissionsPage({
         <button type="submit" className="admin-btn-secondary text-sm">Search</button>
       </form>
 
-      <section className="admin-card overflow-hidden">
+      <section className="admin-card overflow-x-auto">
         <table className="admin-table">
           <thead>
             <tr>
