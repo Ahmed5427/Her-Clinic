@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Her Clinic - Health and Wellness by Dr. Reham Mohamed',
-  description: 'Premium beauty and wellness treatments by Dr. Reham Mohamed. Experience excellence in aesthetic medicine and holistic wellness care.',
-  keywords: 'beauty clinic, wellness, aesthetic medicine, Dr. Reham Mohamed, skin care, laser treatments',
+  title: 'Dr. Reham Mohamed · Beauty & Wellness Atelier',
+  description:
+    'A bespoke beauty atelier by Dr. Reham Mohamed. Advanced aesthetic medicine, laser, and wellness rituals — designed to elevate your natural elegance.',
+  keywords:
+    'Dr. Reham Mohamed, beauty clinic, aesthetic medicine, skin care, laser treatments, wellness, Cairo, تجميل, د. ريهام محمد',
 };
 
 export default function RootLayout({

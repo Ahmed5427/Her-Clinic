@@ -2,62 +2,94 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Heart, Instagram, Facebook, Twitter, Mail } from 'lucide-react';
-import Link from 'next/link';
+import { Instagram, Facebook, MessageCircle, Mail, Sparkles } from 'lucide-react';
+import { useState } from 'react';
 
-export default function Footer() {
+interface FooterProps {
+  locale: string;
+}
+
+export default function Footer({ locale }: FooterProps) {
   const t = useTranslations('footer');
   const navT = useTranslations('nav');
+  const [logoOk, setLogoOk] = useState(true);
 
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram' },
     { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:info@herclinic.com', label: 'Email' },
+    { icon: MessageCircle, href: '#', label: 'WhatsApp' },
+    { icon: Mail, href: 'mailto:info@drrehammohamed.com', label: 'Email' },
   ];
 
   const quickLinks = [
-    { label: navT('home'), href: '#home' },
-    { label: navT('about'), href: '#about' },
-    { label: navT('services'), href: '#services' },
-    { label: navT('contact'), href: '#contact' },
+    { label: navT('home'), href: `/${locale}#home` },
+    { label: navT('about'), href: `/${locale}#about` },
+    { label: navT('services'), href: `/${locale}#services` },
+    { label: navT('gallery'), href: `/${locale}#gallery` },
+    { label: navT('contact'), href: `/${locale}#contact` },
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-primary-900 via-rose-900 to-pink-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Brand Section */}
+    <footer className="relative overflow-hidden text-white">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary-800 via-rose-800 to-gold-800" />
+      <div className="absolute inset-0 -z-10 opacity-30">
+        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-rose-500/30 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-gold-500/30 blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
-            <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
-              <Heart className="w-8 h-8" />
-              <span className="font-display text-2xl font-bold">Her Clinic</span>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-full bg-white/95 ring-1 ring-gold-200 shadow-soft flex items-center justify-center overflow-hidden">
+                {logoOk ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src="/logo.png"
+                    alt="Dr. Reham Mohamed"
+                    className="w-full h-full object-cover"
+                    onError={() => setLogoOk(false)}
+                  />
+                ) : (
+                  <span className="font-display italic text-2xl text-rose-gold">R</span>
+                )}
+              </div>
+              <div>
+                <div className="font-display text-2xl">Dr. Reham Mohamed</div>
+                <div className="text-[10px] uppercase tracking-[0.35em] text-gold-200">
+                  Beauty &amp; Wellness
+                </div>
+              </div>
             </div>
-            <p className="text-white/80 mb-4">{t('tagline')}</p>
-            <p className="text-sm text-white/60">Dr. Reham Mohamed</p>
+            <p className="text-white/80 italic font-display text-lg">{t('tagline')}</p>
+            <div className="gold-divider w-24 my-5" />
+            <p className="text-sm text-white/60 leading-relaxed font-light">
+              {t('about')}
+            </p>
           </motion.div>
 
-          {/* Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
           >
-            <h3 className="font-display text-xl font-bold mb-4">{t('quickLinks')}</h3>
-            <ul className="space-y-2">
+            <h3 className="font-display text-xl mb-4">{t('quickLinks')}</h3>
+            <div className="gold-divider w-12 mb-5" />
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <motion.a
                     href={link.href}
-                    whileHover={{ x: 5 }}
-                    className="text-white/80 hover:text-white transition-colors inline-block"
+                    whileHover={{ x: 6 }}
+                    className="text-white/80 hover:text-white transition-colors inline-flex items-center gap-2"
                   >
+                    <Sparkles className="w-3 h-3 text-gold-300" />
                     {link.label}
                   </motion.a>
                 </li>
@@ -65,42 +97,41 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <h3 className="font-display text-xl font-bold mb-4">{t('followUs')}</h3>
-            <div className="flex space-x-4 rtl:space-x-reverse">
+            <h3 className="font-display text-xl mb-4">{t('followUs')}</h3>
+            <div className="gold-divider w-12 mb-5" />
+            <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                  whileHover={{ scale: 1.15, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 ring-1 ring-white/20 flex items-center justify-center transition-colors"
                   aria-label={social.label}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
             </div>
+            <p className="mt-6 text-sm text-white/70 font-light">{t('joinUs')}</p>
           </motion.div>
         </div>
 
-        {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="border-t border-white/10 pt-8 text-center text-white/60 text-sm"
+          transition={{ duration: 0.7, delay: 0.45 }}
+          className="border-t border-white/15 pt-6 text-center text-white/60 text-sm flex flex-col md:flex-row md:items-center md:justify-between gap-2"
         >
-          <p>
-            © {new Date().getFullYear()} Her Clinic. {t('rights')}
-          </p>
+          <p>© {new Date().getFullYear()} Dr. Reham Mohamed. {t('rights')}</p>
+          <p className="font-display italic text-gold-200">{t('signature')}</p>
         </motion.div>
       </div>
     </footer>

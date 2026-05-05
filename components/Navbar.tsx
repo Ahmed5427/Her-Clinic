@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Menu, X, Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -16,12 +16,11 @@ export default function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('nav');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [logoOk, setLogoOk] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 24);
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -30,98 +29,116 @@ export default function Navbar({ locale }: NavbarProps) {
     { label: t('home'), href: `/${locale}#home` },
     { label: t('about'), href: `/${locale}#about` },
     { label: t('services'), href: `/${locale}#services` },
+    { label: t('gallery'), href: `/${locale}#gallery` },
     { label: t('contact'), href: `/${locale}#contact` },
   ];
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-effect shadow-xl py-3' : 'bg-transparent py-5'
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? 'glass-effect py-3' : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href={`/${locale}`}>
+          <Link href={`/${locale}`} aria-label="Her Clinic">
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 rtl:space-x-reverse"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center gap-3"
             >
-              <Sparkles className="w-8 h-8 text-primary-500" />
-              <span className="font-display text-2xl font-bold text-gradient">
-                Her Clinic
-              </span>
+              <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-rose-100 via-cream-100 to-gold-100 ring-1 ring-gold-200 shadow-soft flex items-center justify-center overflow-hidden">
+                {logoOk ? (
+                  // Drop your logo at /public/logo.png
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src="/logo.png"
+                    alt="Dr. Reham Mohamed"
+                    className="w-full h-full object-cover"
+                    onError={() => setLogoOk(false)}
+                  />
+                ) : (
+                  <span className="font-display italic text-xl text-rose-gold">R</span>
+                )}
+              </div>
+              <div className="leading-tight">
+                <div className="font-display text-xl md:text-2xl text-rose-gold tracking-wide">
+                  Dr. Reham Mohamed
+                </div>
+                <div className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] text-gold-600">
+                  Beauty &amp; Wellness
+                </div>
+              </div>
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
-            {navItems.map((item) => (
+          <div className="hidden lg:flex items-center gap-8">
+            {navItems.map((item, i) => (
               <motion.a
                 key={item.href}
                 href={item.href}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
+                className="relative text-gray-700 hover:text-rose-600 font-medium transition-colors group"
               >
                 {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-rose-500 to-gold-500 transition-all duration-300 group-hover:w-full" />
               </motion.a>
             ))}
             <LanguageSwitcher currentLocale={locale} />
             <motion.a
               href={`/${locale}#contact`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               className="btn-primary"
             >
               {t('book')}
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4 rtl:space-x-reverse">
+          <div className="lg:hidden flex items-center gap-3">
             <LanguageSwitcher currentLocale={locale} />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-gray-700 hover:text-rose-600 transition-colors p-2"
+              aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden mt-4 space-y-4"
+              transition={{ duration: 0.35 }}
+              className="lg:hidden mt-4 space-y-3 pb-4"
             >
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.href}
                   href={item.href}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.06 }}
                   onClick={() => setIsOpen(false)}
-                  className="block text-gray-700 hover:text-primary-600 font-medium py-2"
+                  className="block text-gray-700 hover:text-rose-600 font-medium py-2"
                 >
                   {item.label}
                 </motion.a>
               ))}
               <motion.a
                 href={`/${locale}#contact`}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navItems.length * 0.1 }}
+                transition={{ delay: navItems.length * 0.06 }}
                 onClick={() => setIsOpen(false)}
                 className="btn-primary block text-center"
               >

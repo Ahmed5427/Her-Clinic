@@ -35,7 +35,7 @@ export default function LanguageSwitcher({ currentLocale }: LanguageSwitcherProp
       disabled={isPending}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-2 rounded-full border-2 border-primary-400 text-primary-600 hover:bg-primary-50 transition-all duration-300 disabled:opacity-50"
+      className="flex items-center gap-2 px-4 py-2 rounded-full border border-gold-300 text-primary-700 bg-white/40 backdrop-blur hover:bg-gold-50 hover:border-gold-500 transition-all duration-300 disabled:opacity-50"
     >
       <Languages className="w-4 h-4" />
       <span className="text-sm font-medium">{currentLocale === 'en' ? 'العربية' : 'English'}</span>
