@@ -9,12 +9,23 @@ const intlMiddleware = createIntlMiddleware({
   localePrefix: 'always',
 });
 
+const LOCALE_ADMIN_RE = /^\/(en|ar)\/admin(\/.*)?$/;
+
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isAdmin = pathname.startsWith('/admin');
+
+  // /en/admin or /ar/admin — strip the locale and redirect to /admin/...
+  const localeAdminMatch = pathname.match(LOCALE_ADMIN_RE);
+  if (localeAdminMatch) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/admin${localeAdminMatch[2] ?? ''}`;
+    return NextResponse.redirect(url);
+  }
+
+  const isAdmin = pathname === '/admin' || pathname.startsWith('/admin/');
 
   // Public routes go through next-intl. Admin routes skip i18n.
-  let res = isAdmin ? NextResponse.next({ request: req }) : intlMiddleware(req);
+  const res = isAdmin ? NextResponse.next({ request: req }) : intlMiddleware(req);
 
   // Refresh Supabase auth cookies on every request and read the user.
   const { user } = await updateSession(req, res);
