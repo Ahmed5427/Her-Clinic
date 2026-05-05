@@ -84,6 +84,28 @@ export interface SiteSettingRow {
   updated_at: string;
 }
 
+export interface FaqRow {
+  id: string;
+  question_en: string;
+  question_ar: string;
+  answer_en: string;
+  answer_ar: string;
+  position: number;
+  published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ChatbotSettings {
+  enabled: boolean;
+  greeting_en: string;
+  greeting_ar: string;
+  persona_en: string;
+  persona_ar: string;
+  suggested_en: string[];
+  suggested_ar: string[];
+}
+
 export interface BrandingSettings {
   logo_url: string;
   logo_mark_url: string;
@@ -113,4 +135,5 @@ export interface SiteSettings {
   contact_info: ContactInfo;
   working_hours: WorkingHours;
   social_links: SocialLinks;
+  chatbot: ChatbotSettings;
 }

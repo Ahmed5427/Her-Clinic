@@ -9,6 +9,8 @@ import type {
   ContactInfo,
   WorkingHours,
   SocialLinks,
+  ChatbotSettings,
+  FaqRow,
 } from '@/lib/supabase/types';
 
 const FALLBACK_BRANDING: BrandingSettings = {
@@ -33,6 +35,27 @@ const FALLBACK_SOCIAL: SocialLinks = {
   facebook: '',
   whatsapp: '',
   email: 'mailto:info@drrehammohamed.com',
+};
+
+const FALLBACK_CHATBOT: ChatbotSettings = {
+  enabled: true,
+  greeting_en:
+    "Hi, beautiful! I'm Reham — Dr. Reham's clinic concierge. Ask me anything about treatments, results, prices, or booking.",
+  greeting_ar:
+    'أهلاً يا جميلة! أنا ريهام، الكونسيرج الرقمي لعيادة د. ريهام. اسأليني عن أي علاج، نتائج، أسعار أو حجز.',
+  persona_en:
+    "You are a warm, elegant beauty concierge for Dr. Reham Mohamed's clinic.",
+  persona_ar: 'أنتِ كونسيرج جمالي راقي لعيادة الدكتورة ريهام محمد.',
+  suggested_en: [
+    'What services do you offer?',
+    'Can I see before & after results?',
+    'What are your working hours?',
+  ],
+  suggested_ar: [
+    'ما هي الخدمات المتوفرة؟',
+    'هل يمكنني رؤية نتائج قبل وبعد؟',
+    'ما هي ساعات العمل؟',
+  ],
 };
 
 async function safe<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
@@ -104,5 +127,21 @@ export async function getSiteSettings() {
       ...FALLBACK_SOCIAL,
       ...(map.social_links as Partial<SocialLinks> | undefined),
     },
+    chatbot: {
+      ...FALLBACK_CHATBOT,
+      ...(map.chatbot as Partial<ChatbotSettings> | undefined),
+    },
   };
+}
+
+export async function getFaq(): Promise<FaqRow[]> {
+  return safe(async () => {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('faq')
+      .select('*')
+      .eq('published', true)
+      .order('position', { ascending: true });
+    return (data ?? []) as FaqRow[];
+  }, []);
 }
