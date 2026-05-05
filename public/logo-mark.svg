@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="m-stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8c5a0"/>
+      <stop offset="100%" stop-color="#8e5e2d"/>
+    </linearGradient>
+    <linearGradient id="m-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3d4b8"/>
+      <stop offset="50%" stop-color="#c79666"/>
+      <stop offset="100%" stop-color="#a3733f"/>
+    </linearGradient>
+    <radialGradient id="m-glow" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0%" stop-color="#fff5ec" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#f6dec0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="60" cy="60" r="58" fill="url(#m-glow)"/>
+  <circle cx="60" cy="60" r="55" stroke="url(#m-stroke)" stroke-width="0.8" fill="none" opacity="0.85"/>
+  <circle cx="60" cy="60" r="50" stroke="url(#m-stroke)" stroke-width="0.4" fill="none" stroke-dasharray="1 2.4" opacity="0.7"/>
+
+  <!-- crown sparkle -->
+  <g transform="translate(60 14)">
+    <path d="M0 -6 L1 -1 L6 0 L1 1 L0 6 L-1 1 L-6 0 L-1 -1 Z" fill="url(#m-fill)"/>
+  </g>
+
+  <!-- monogram -->
+  <g font-family="'Cormorant Garamond', 'Playfair Display', serif" fill="url(#m-fill)">
+    <text x="32" y="78" font-size="64" font-style="italic" font-weight="500">R</text>
+    <text x="55" y="82" font-size="60" font-style="italic" font-weight="500" opacity="0.92">M</text>
+  </g>
+
+  <!-- flourish -->
+  <path d="M34 92 q 26 -7 52 0" stroke="url(#m-stroke)" stroke-width="0.7" fill="none" opacity="0.8"/>
+  <circle cx="34" cy="92" r="1" fill="url(#m-fill)"/>
+  <circle cx="86" cy="92" r="1" fill="url(#m-fill)"/>
+</svg>

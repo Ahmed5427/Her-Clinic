@@ -7,6 +7,11 @@ export const metadata: Metadata = {
     'A bespoke beauty atelier by Dr. Reham Mohamed. Advanced aesthetic medicine, laser, and wellness rituals — designed to elevate your natural elegance.',
   keywords:
     'Dr. Reham Mohamed, beauty clinic, aesthetic medicine, skin care, laser treatments, wellness, Cairo, تجميل, د. ريهام محمد',
+  icons: {
+    icon: '/logo-mark.svg',
+    shortcut: '/logo-mark.svg',
+    apple: '/logo-mark.svg',
+  },
 };
 
 export default function RootLayout({

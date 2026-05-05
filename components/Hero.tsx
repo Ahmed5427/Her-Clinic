@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { Sparkles, Heart, Star, Flower2 } from 'lucide-react';
 
 export default function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale();
-  const [logoOk, setLogoOk] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const yLogo = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const yTitle = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const yBg = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const float = (delay = 0, range = 22) => ({
     animate: {
@@ -21,15 +29,16 @@ export default function Hero() {
   return (
     <section
       id="home"
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-16"
     >
       {/* Layered luxury background */}
       <div className="absolute inset-0 -z-10 bg-luxury-gradient" />
-      <div className="absolute inset-0 -z-10">
+      <motion.div style={{ y: yBg }} className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-32 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-rose-200/60 to-transparent blur-3xl" />
         <div className="absolute -bottom-32 -right-24 w-[32rem] h-[32rem] rounded-full bg-gradient-to-br from-gold-200/50 to-transparent blur-3xl" />
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[22rem] h-[22rem] rounded-full bg-gradient-to-br from-cream-100 to-rose-100 blur-3xl opacity-60" />
-      </div>
+      </motion.div>
 
       {/* Floating ornaments */}
       <div className="absolute inset-0 pointer-events-none">
@@ -60,9 +69,13 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <motion.div
+        style={{ opacity }}
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+      >
         {/* Logo medallion */}
         <motion.div
+          style={{ y: yLogo }}
           initial={{ scale: 0, rotate: -45, opacity: 0 }}
           animate={{ scale: 1, rotate: 0, opacity: 1 }}
           transition={{ duration: 0.9, type: 'spring', stiffness: 120 }}
@@ -75,30 +88,17 @@ export default function Hero() {
             style={{
               background:
                 'conic-gradient(from 0deg, #f5e0c2, #dcb766, #c79666, #f5d4cc, #f5e0c2)',
-              filter: 'blur(6px)',
-              transform: 'scale(1.1)',
+              filter: 'blur(8px)',
+              transform: 'scale(1.15)',
             }}
           />
-          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full bg-white shadow-luxury ring-2 ring-gold-200 flex items-center justify-center overflow-hidden">
-            {logoOk ? (
-              // Drop your real logo at /public/logo.png
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src="/logo.png"
-                alt="Dr. Reham Mohamed"
-                className="w-full h-full object-cover"
-                onError={() => setLogoOk(false)}
-              />
-            ) : (
-              <div className="text-center">
-                <div className="font-display italic text-4xl md:text-5xl text-rose-gold leading-none">
-                  R<span className="text-gold-500">M</span>
-                </div>
-                <div className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] text-gold-700 mt-1">
-                  Clinic
-                </div>
-              </div>
-            )}
+          <div className="relative w-44 h-44 md:w-56 md:h-56 flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.svg"
+              alt="Dr. Reham Mohamed"
+              className="w-full h-full object-contain drop-shadow-[0_8px_24px_rgba(199,150,102,0.45)]"
+            />
           </div>
         </motion.div>
 
@@ -112,6 +112,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.h1
+          style={{ y: yTitle }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}
@@ -168,7 +169,7 @@ export default function Hero() {
             ✦ Bespoke Beauty &amp; Wellness ✦
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Bottom curved fade */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-cream-50 pointer-events-none" />
