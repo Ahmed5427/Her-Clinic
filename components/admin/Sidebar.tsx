@@ -13,6 +13,8 @@ import {
   Palette,
   Settings,
   ExternalLink,
+  HelpCircle,
+  Bot,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,6 +33,8 @@ const links: NavLink[] = [
   { href: '/admin/content/cases', label: 'Before & After', icon: ImageIcon },
   { href: '/admin/content/services', label: 'Services', icon: Sparkles },
   { href: '/admin/content/testimonials', label: 'Testimonials', icon: MessageSquareQuote },
+  { href: '/admin/content/faq', label: 'FAQ', icon: HelpCircle },
+  { href: '/admin/content/chatbot', label: 'Chatbot', icon: Bot },
   { href: '/admin/content/branding', label: 'Branding & Logo', icon: Palette },
   { href: '/admin/settings', label: 'Site Settings', icon: Settings },
 ];

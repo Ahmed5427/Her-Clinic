@@ -76,3 +76,35 @@ export const socialLinksSchema = z.object({
   whatsapp: z.string().trim().max(300).optional().or(z.literal('')),
   email: z.string().trim().max(300).optional().or(z.literal('')),
 });
+
+export const faqSchema = z.object({
+  question_en: z.string().trim().min(2).max(400),
+  question_ar: z.string().trim().min(2).max(400),
+  answer_en: z.string().trim().min(2).max(4000),
+  answer_ar: z.string().trim().min(2).max(4000),
+  position: z.coerce.number().int().min(0).max(999).default(0),
+  published: z.coerce.boolean().default(true),
+});
+
+export const chatbotSettingsSchema = z.object({
+  enabled: z.coerce.boolean().default(true),
+  greeting_en: z.string().trim().min(2).max(600),
+  greeting_ar: z.string().trim().min(2).max(600),
+  persona_en: z.string().trim().min(2).max(2000),
+  persona_ar: z.string().trim().min(2).max(2000),
+  suggested_en: z.array(z.string().trim().min(2).max(200)).max(8).default([]),
+  suggested_ar: z.array(z.string().trim().min(2).max(200)).max(8).default([]),
+});
+
+export const chatRequestSchema = z.object({
+  locale: z.enum(['en', 'ar']).default('en'),
+  messages: z
+    .array(
+      z.object({
+        role: z.enum(['user', 'assistant']),
+        content: z.string().min(1).max(4000),
+      })
+    )
+    .min(1)
+    .max(40),
+});

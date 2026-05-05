@@ -21,6 +21,7 @@ export interface Database {
       testimonials: Loose;
       profiles: Loose;
       site_settings: Loose;
+      faq: Loose;
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

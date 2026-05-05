@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
+import Chatbot from '@/components/Chatbot';
 import { getSiteSettings } from '@/lib/site-data';
 import '../globals.css';
 
@@ -49,6 +50,12 @@ export default async function LocaleLayout({
             locale={locale}
             logoMarkUrl={settings.branding.logo_mark_url}
             social={settings.social_links}
+          />
+          <Chatbot
+            locale={locale}
+            enabled={settings.chatbot.enabled}
+            greeting={locale === 'ar' ? settings.chatbot.greeting_ar : settings.chatbot.greeting_en}
+            suggested={locale === 'ar' ? settings.chatbot.suggested_ar : settings.chatbot.suggested_en}
           />
         </NextIntlClientProvider>
         <Toaster position="bottom-right" richColors closeButton />
