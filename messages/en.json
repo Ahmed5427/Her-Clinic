@@ -3,71 +3,140 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
-    "gallery": "Gallery",
+    "gallery": "Results",
     "contact": "Contact",
     "book": "Book Now"
   },
   "hero": {
-    "title": "Welcome to Her Clinic",
-    "subtitle": "Health and Wellness",
-    "description": "Experience premium beauty and wellness treatments by Dr. Reham Mohamed. Where elegance meets excellence.",
-    "cta": "Book Your Appointment",
-    "learn": "Learn More"
+    "title": "Dr. Reham Mohamed",
+    "subtitle": "Beauty · Wellness · Confidence",
+    "description": "A bespoke beauty atelier where advanced aesthetic medicine meets a softer, more feminine touch — designed to elevate your natural elegance.",
+    "cta": "Book Your Consultation",
+    "learn": "Discover the Clinic"
   },
   "about": {
-    "title": "About Dr. Reham Mohamed",
+    "eyebrow": "About Dr. Reham",
+    "title": "Where Science Meets Beauty",
     "subtitle": "Your Beauty & Wellness Expert",
-    "description": "Dr. Reham Mohamed is a distinguished professional in aesthetic medicine and wellness, dedicated to helping women feel confident and beautiful. With years of experience and a passion for excellence, Dr. Reham provides personalized care tailored to each client's unique needs.",
+    "description": "Dr. Reham Mohamed is a distinguished aesthetic physician dedicated to helping women feel confident in their own skin. With over a decade of refined practice and an artist's eye for natural results, every treatment plan is tailored to honour your unique features.",
     "experience": "Years of Experience",
     "clients": "Happy Clients",
-    "treatments": "Treatments Offered"
+    "treatments": "Signature Treatments",
+    "credential": "Certified Aesthetic Physician",
+    "badge": "Trusted by 2,000+ women",
+    "cta": "Book a Private Consultation"
   },
   "services": {
+    "eyebrow": "Our Signature Menu",
     "title": "Our Services",
-    "subtitle": "Premium Beauty & Wellness Treatments",
+    "subtitle": "A curated collection of beauty and wellness rituals — each one tailored to celebrate you.",
     "skinCare": {
       "title": "Skin Care",
-      "description": "Advanced skin treatments including facials, chemical peels, and rejuvenation therapies for radiant, healthy skin."
+      "description": "Advanced facials, chemical peels, and rejuvenation rituals for a luminous, healthy complexion."
     },
     "aesthetics": {
       "title": "Aesthetic Treatments",
-      "description": "Non-surgical aesthetic procedures including fillers, Botox, and contouring for natural-looking results."
+      "description": "Refined non-surgical enhancements — fillers, Botox and contouring — for results that feel like you, only better."
     },
     "laser": {
       "title": "Laser Treatments",
-      "description": "State-of-the-art laser treatments for hair removal, skin resurfacing, and pigmentation correction."
+      "description": "State-of-the-art laser technologies for hair removal, skin resurfacing and even-toned radiance."
     },
     "wellness": {
       "title": "Wellness Programs",
-      "description": "Holistic wellness programs including nutritional guidance and vitamin therapy for overall health."
+      "description": "Holistic wellness journeys with nutrition guidance and IV vitamin therapies that nourish from within."
     },
     "body": {
       "title": "Body Treatments",
-      "description": "Body contouring, cellulite reduction, and slimming treatments for your desired silhouette."
+      "description": "Body sculpting, cellulite refinement and slimming protocols for a silhouette you'll love."
     },
     "hair": {
       "title": "Hair Treatments",
-      "description": "Professional hair care including PRP therapy, mesotherapy, and specialized hair restoration treatments."
+      "description": "PRP, mesotherapy and restorative hair rituals to revive density, shine and vitality."
+    }
+  },
+  "gallery": {
+    "eyebrow": "Real Results",
+    "title": "Before & After",
+    "subtitle": "Slide through real transformations crafted with precision, care and an eye for natural beauty.",
+    "before": "Before",
+    "after": "After",
+    "dragHint": "Drag to reveal",
+    "disclaimer": "Results vary from person to person. Photos shared with consent of our beloved clients.",
+    "cases": {
+      "skin": {
+        "title": "Skin Glow Revival",
+        "description": "A tailored programme of medical-grade peels and facials that restored a radiant, even complexion in just six weeks."
+      },
+      "lips": {
+        "title": "Lip Enhancement",
+        "description": "Soft, balanced lip artistry — adding hydration and definition while keeping a natural, kissable finish."
+      },
+      "laser": {
+        "title": "Laser Hair Removal",
+        "description": "A complete laser cycle delivering smooth, hair-free skin with comfort and precision."
+      },
+      "contour": {
+        "title": "Facial Contouring",
+        "description": "Subtle filler artistry refining facial harmony — lifted cheeks, sculpted jawline and a fresh, rested look."
+      }
+    }
+  },
+  "testimonials": {
+    "eyebrow": "Kind Words",
+    "title": "What Our Clients Say",
+    "items": {
+      "one": {
+        "quote": "Dr. Reham didn't just enhance my features — she made me feel like the most confident version of myself. The clinic feels like a sanctuary.",
+        "name": "Yasmine A.",
+        "role": "Skin & Lips"
+      },
+      "two": {
+        "quote": "I've never trusted a clinic so deeply. Every detail is luxurious, every result is natural. Truly an artist.",
+        "name": "Layla M.",
+        "role": "Aesthetic Treatments"
+      },
+      "three": {
+        "quote": "The before-and-after speaks for itself, but the experience is what made me a forever client. Pure elegance.",
+        "name": "Nour H.",
+        "role": "Wellness & Skin"
+      }
     }
   },
   "contact": {
-    "title": "Get in Touch",
-    "subtitle": "Book Your Consultation Today",
+    "eyebrow": "Reservations",
+    "title": "Book Your Visit",
+    "subtitle": "Begin your beauty journey with a private consultation tailored just for you.",
     "name": "Full Name",
     "email": "Email Address",
     "phone": "Phone Number",
     "service": "Service Interest",
+    "selectService": "Select a service",
     "message": "Message",
     "send": "Send Message",
-    "info": "Contact Information",
+    "info": "Get in Touch",
     "location": "Location",
+    "locationValue": "Cairo, Egypt",
     "hours": "Working Hours",
-    "hoursValue": "Sat - Thu: 10:00 AM - 8:00 PM"
+    "hoursValue": "Sat – Thu · 10:00 AM – 8:00 PM",
+    "mapLabel": "Visit the Clinic",
+    "thankYou": "Thank you — we'll be in touch shortly.",
+    "options": {
+      "skincare": "Skin Care",
+      "aesthetics": "Aesthetic Treatments",
+      "laser": "Laser Treatments",
+      "wellness": "Wellness Programs",
+      "body": "Body Treatments",
+      "hair": "Hair Treatments"
+    }
   },
   "footer": {
     "tagline": "Where Beauty Meets Wellness",
-    "quickLinks": "Quick Links",
+    "about": "A boutique beauty atelier curated by Dr. Reham Mohamed — devoted to refined, natural and luxurious aesthetic care.",
+    "quickLinks": "Discover",
     "followUs": "Follow Us",
-    "rights": "All rights reserved"
+    "joinUs": "Join our world of beauty rituals, wellness tips and member-only invitations.",
+    "rights": "All rights reserved.",
+    "signature": "Crafted with love for women, by Dr. Reham"
   }
 }
