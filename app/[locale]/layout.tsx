@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { locales } from '@/i18n';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export default async function LocaleLayout({
   children,
@@ -34,6 +35,7 @@ export default async function LocaleLayout({
         style={{ fontFamily: isRTL ? 'Cairo, Tajawal, system-ui, sans-serif' : 'Inter, system-ui, sans-serif' }}
       >
         <NextIntlClientProvider messages={messages}>
+          <SmoothScroll />
           <Navbar locale={locale} />
           <main>{children}</main>
           <Footer locale={locale} />

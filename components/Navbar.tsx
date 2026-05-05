@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -16,7 +15,6 @@ export default function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('nav');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [logoOk, setLogoOk] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
@@ -50,19 +48,13 @@ export default function Navbar({ locale }: NavbarProps) {
               whileTap={{ scale: 0.96 }}
               className="flex items-center gap-3"
             >
-              <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-rose-100 via-cream-100 to-gold-100 ring-1 ring-gold-200 shadow-soft flex items-center justify-center overflow-hidden">
-                {logoOk ? (
-                  // Drop your logo at /public/logo.png
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src="/logo.png"
-                    alt="Dr. Reham Mohamed"
-                    className="w-full h-full object-cover"
-                    onError={() => setLogoOk(false)}
-                  />
-                ) : (
-                  <span className="font-display italic text-xl text-rose-gold">R</span>
-                )}
+              <div className="relative w-11 h-11 flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-mark.svg"
+                  alt="Dr. Reham Mohamed"
+                  className="w-full h-full object-contain drop-shadow-[0_2px_6px_rgba(199,150,102,0.35)]"
+                />
               </div>
               <div className="leading-tight">
                 <div className="font-display text-xl md:text-2xl text-rose-gold tracking-wide">

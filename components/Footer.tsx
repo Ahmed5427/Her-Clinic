@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Instagram, Facebook, MessageCircle, Mail, Sparkles } from 'lucide-react';
-import { useState } from 'react';
 
 interface FooterProps {
   locale: string;
@@ -12,7 +11,6 @@ interface FooterProps {
 export default function Footer({ locale }: FooterProps) {
   const t = useTranslations('footer');
   const navT = useTranslations('nav');
-  const [logoOk, setLogoOk] = useState(true);
 
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram' },
@@ -46,18 +44,13 @@ export default function Footer({ locale }: FooterProps) {
             transition={{ duration: 0.7 }}
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-white/95 ring-1 ring-gold-200 shadow-soft flex items-center justify-center overflow-hidden">
-                {logoOk ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src="/logo.png"
-                    alt="Dr. Reham Mohamed"
-                    className="w-full h-full object-cover"
-                    onError={() => setLogoOk(false)}
-                  />
-                ) : (
-                  <span className="font-display italic text-2xl text-rose-gold">R</span>
-                )}
+              <div className="w-14 h-14 flex items-center justify-center bg-white/95 rounded-full p-1 shadow-soft">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-mark.svg"
+                  alt="Dr. Reham Mohamed"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <div className="font-display text-2xl">Dr. Reham Mohamed</div>

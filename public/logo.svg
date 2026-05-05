@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <linearGradient id="rg-stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8c5a0"/>
+      <stop offset="40%" stop-color="#c79666"/>
+      <stop offset="100%" stop-color="#8e5e2d"/>
+    </linearGradient>
+    <linearGradient id="rg-fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3d4b8"/>
+      <stop offset="50%" stop-color="#c79666"/>
+      <stop offset="100%" stop-color="#a3733f"/>
+    </linearGradient>
+    <linearGradient id="rg-leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dcb98e"/>
+      <stop offset="100%" stop-color="#8a5a2b"/>
+    </linearGradient>
+    <radialGradient id="rg-glow" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0%" stop-color="#fff5ec" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#fbe6cf" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#f6dec0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- soft ivory glow -->
+  <circle cx="120" cy="120" r="116" fill="url(#rg-glow)"/>
+
+  <!-- double border ring -->
+  <circle cx="120" cy="120" r="110" stroke="url(#rg-stroke)" stroke-width="1.2" fill="none" opacity="0.85"/>
+  <circle cx="120" cy="120" r="103" stroke="url(#rg-stroke)" stroke-width="0.6" fill="none" stroke-dasharray="1.2 3" opacity="0.7"/>
+
+  <!-- top crown sparkle -->
+  <g transform="translate(120 22)">
+    <path d="M0 -10 L1.6 -1.6 L10 0 L1.6 1.6 L0 10 L-1.6 1.6 L-10 0 L-1.6 -1.6 Z" fill="url(#rg-fill)"/>
+    <circle cx="0" cy="0" r="1.6" fill="#fffaf2"/>
+  </g>
+
+  <!-- side ornaments -->
+  <g stroke="url(#rg-stroke)" stroke-linecap="round" fill="none" stroke-width="1">
+    <path d="M40 120 q -8 -4 -14 0"/>
+    <path d="M40 120 q -8 4 -14 0"/>
+    <path d="M200 120 q 8 -4 14 0"/>
+    <path d="M200 120 q 8 4 14 0"/>
+  </g>
+  <circle cx="26" cy="120" r="2" fill="url(#rg-fill)"/>
+  <circle cx="214" cy="120" r="2" fill="url(#rg-fill)"/>
+
+  <!-- floral wreath, left side -->
+  <g stroke="url(#rg-leaf)" stroke-width="1.2" fill="none" stroke-linecap="round">
+    <path d="M70 178 q 14 14 36 16"/>
+    <path d="M76 174 q -4 -8 -2 -16" />
+    <path d="M84 178 q -2 -10 4 -18" />
+    <path d="M94 184 q 0 -10 8 -16" />
+    <path d="M104 188 q 2 -10 10 -14" />
+  </g>
+  <g fill="url(#rg-leaf)" opacity="0.85">
+    <ellipse cx="74" cy="167" rx="3.4" ry="6" transform="rotate(-25 74 167)"/>
+    <ellipse cx="86" cy="162" rx="3.2" ry="6" transform="rotate(-15 86 162)"/>
+    <ellipse cx="100" cy="170" rx="3" ry="5.6" transform="rotate(-8 100 170)"/>
+    <ellipse cx="112" cy="174" rx="2.8" ry="5.4" transform="rotate(0 112 174)"/>
+  </g>
+
+  <!-- floral wreath, right side (mirrored) -->
+  <g stroke="url(#rg-leaf)" stroke-width="1.2" fill="none" stroke-linecap="round">
+    <path d="M170 178 q -14 14 -36 16"/>
+    <path d="M164 174 q 4 -8 2 -16" />
+    <path d="M156 178 q 2 -10 -4 -18" />
+    <path d="M146 184 q 0 -10 -8 -16" />
+    <path d="M136 188 q -2 -10 -10 -14" />
+  </g>
+  <g fill="url(#rg-leaf)" opacity="0.85">
+    <ellipse cx="166" cy="167" rx="3.4" ry="6" transform="rotate(25 166 167)"/>
+    <ellipse cx="154" cy="162" rx="3.2" ry="6" transform="rotate(15 154 162)"/>
+    <ellipse cx="140" cy="170" rx="3" ry="5.6" transform="rotate(8 140 170)"/>
+    <ellipse cx="128" cy="174" rx="2.8" ry="5.4" transform="rotate(0 128 174)"/>
+  </g>
+
+  <!-- center rose -->
+  <g transform="translate(120 196)">
+    <circle r="5" fill="url(#rg-fill)"/>
+    <circle r="2.4" fill="#fff5ea"/>
+  </g>
+
+  <!-- RM Monogram -->
+  <g font-family="'Cormorant Garamond', 'Playfair Display', serif" fill="url(#rg-fill)">
+    <!-- Stylised "R" -->
+    <text x="78" y="142" font-size="118" font-style="italic" font-weight="500">R</text>
+    <!-- Stylised "M" overlapping -->
+    <text x="118" y="148" font-size="110" font-style="italic" font-weight="500" opacity="0.92">M</text>
+  </g>
+
+  <!-- subtle flourish under monogram -->
+  <path d="M78 158 q 42 -10 84 0" stroke="url(#rg-stroke)" stroke-width="1" fill="none" opacity="0.8"/>
+  <circle cx="78" cy="158" r="1.4" fill="url(#rg-fill)"/>
+  <circle cx="162" cy="158" r="1.4" fill="url(#rg-fill)"/>
+
+  <!-- top arc text-style accent -->
+  <path d="M64 70 q 56 -38 112 0" stroke="url(#rg-stroke)" stroke-width="0.9" fill="none" opacity="0.55"/>
+  <circle cx="64" cy="70" r="1.4" fill="url(#rg-fill)"/>
+  <circle cx="176" cy="70" r="1.4" fill="url(#rg-fill)"/>
+
+  <!-- name tag inside ring -->
+  <g font-family="'Cormorant Garamond', serif" fill="url(#rg-stroke)" text-anchor="middle">
+    <text x="120" y="62" font-size="9" letter-spacing="3" font-weight="500">DR. REHAM MOHAMED</text>
+    <text x="120" y="220" font-size="7" letter-spacing="5" font-style="italic">BEAUTY · WELLNESS</text>
+  </g>
+</svg>
