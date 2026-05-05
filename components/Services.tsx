@@ -1,20 +1,57 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import { Sparkles, Droplet, Zap, Leaf, Activity, Scissors } from 'lucide-react';
+import { useTranslations, useLocale } from 'next-intl';
+import {
+  Sparkles,
+  Droplet,
+  Zap,
+  Leaf,
+  Activity,
+  Scissors,
+  Heart,
+  Star,
+  Flower2,
+  type LucideIcon,
+} from 'lucide-react';
+import type { ServiceRow } from '@/lib/supabase/types';
 
-export default function Services() {
+const ICONS: Record<string, LucideIcon> = {
+  Sparkles, Droplet, Zap, Leaf, Activity, Scissors, Heart, Star, Flower2,
+};
+
+const PALETTE = [
+  'from-rose-300 to-rose-500',
+  'from-primary-300 to-primary-500',
+  'from-gold-300 to-gold-500',
+  'from-rose-200 to-gold-400',
+  'from-primary-300 to-rose-400',
+  'from-gold-200 to-primary-400',
+];
+
+interface ServicesProps {
+  services?: ServiceRow[];
+}
+
+export default function Services({ services = [] }: ServicesProps) {
   const t = useTranslations('services');
+  const locale = useLocale();
 
-  const services = [
-    { icon: Droplet, title: t('skinCare.title'), description: t('skinCare.description'), color: 'from-rose-300 to-rose-500' },
-    { icon: Sparkles, title: t('aesthetics.title'), description: t('aesthetics.description'), color: 'from-primary-300 to-primary-500' },
-    { icon: Zap, title: t('laser.title'), description: t('laser.description'), color: 'from-gold-300 to-gold-500' },
-    { icon: Leaf, title: t('wellness.title'), description: t('wellness.description'), color: 'from-rose-200 to-gold-400' },
-    { icon: Activity, title: t('body.title'), description: t('body.description'), color: 'from-primary-300 to-rose-400' },
-    { icon: Scissors, title: t('hair.title'), description: t('hair.description'), color: 'from-gold-200 to-primary-400' },
-  ];
+  const items = services.length > 0
+    ? services.map((s, i) => ({
+        Icon: ICONS[s.icon ?? 'Sparkles'] ?? Sparkles,
+        title: locale === 'ar' ? s.title_ar : s.title_en,
+        description: (locale === 'ar' ? s.description_ar : s.description_en) ?? '',
+        color: PALETTE[i % PALETTE.length],
+      }))
+    : [
+        { Icon: Droplet, title: t('skinCare.title'), description: t('skinCare.description'), color: PALETTE[0] },
+        { Icon: Sparkles, title: t('aesthetics.title'), description: t('aesthetics.description'), color: PALETTE[1] },
+        { Icon: Zap, title: t('laser.title'), description: t('laser.description'), color: PALETTE[2] },
+        { Icon: Leaf, title: t('wellness.title'), description: t('wellness.description'), color: PALETTE[3] },
+        { Icon: Activity, title: t('body.title'), description: t('body.description'), color: PALETTE[4] },
+        { Icon: Scissors, title: t('hair.title'), description: t('hair.description'), color: PALETTE[5] },
+      ];
 
   return (
     <section id="services" className="relative py-28 overflow-hidden">
@@ -42,7 +79,7 @@ export default function Services() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {services.map((service, index) => (
+          {items.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -52,18 +89,16 @@ export default function Services() {
               className="group"
             >
               <div className="luxury-card p-8 h-full overflow-hidden">
-                {/* Subtle gradient halo */}
                 <motion.div
                   className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${service.color} opacity-10 group-hover:opacity-20 blur-2xl transition-opacity duration-500`}
                 />
 
-                {/* Icon medallion */}
                 <motion.div
                   whileHover={{ rotate: 360, scale: 1.06 }}
                   transition={{ duration: 0.8 }}
                   className={`relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} shadow-soft mb-6`}
                 >
-                  <service.icon className="w-8 h-8 text-white" strokeWidth={1.6} />
+                  <service.Icon className="w-8 h-8 text-white" strokeWidth={1.6} />
                   <span className="absolute inset-0 rounded-2xl ring-1 ring-white/40" />
                 </motion.div>
 
@@ -75,7 +110,6 @@ export default function Services() {
                   {service.description}
                 </p>
 
-                {/* Floating decorative dot */}
                 <motion.span
                   animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.8, 0.4] }}
                   transition={{ duration: 3 + index * 0.2, repeat: Infinity, ease: 'easeInOut' }}

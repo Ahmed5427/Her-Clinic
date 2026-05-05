@@ -4,9 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import type { CaseRow } from '@/lib/supabase/types';
 
 interface Case {
   key: string;
+  title?: string;
+  description?: string;
   before: string;
   after: string;
 }
@@ -136,16 +139,28 @@ function ComparisonSlider({ before, after, beforeLabel, afterLabel }: SliderProp
   );
 }
 
-export default function BeforeAfter() {
+interface BeforeAfterProps {
+  cases?: CaseRow[];
+}
+
+export default function BeforeAfter({ cases: dbCases = [] }: BeforeAfterProps) {
   const t = useTranslations('gallery');
   const locale = useLocale();
 
-  const cases: Case[] = [
-    { key: 'skin', before: '/cases/skin-before.jpg', after: '/cases/skin-after.jpg' },
-    { key: 'lips', before: '/cases/lips-before.jpg', after: '/cases/lips-after.jpg' },
-    { key: 'laser', before: '/cases/laser-before.jpg', after: '/cases/laser-after.jpg' },
-    { key: 'contour', before: '/cases/contour-before.jpg', after: '/cases/contour-after.jpg' },
-  ];
+  const cases: Case[] = dbCases.length > 0
+    ? dbCases.map((c) => ({
+        key: c.slug,
+        title: locale === 'ar' ? c.title_ar : c.title_en,
+        description: (locale === 'ar' ? c.description_ar : c.description_en) ?? '',
+        before: c.before_url ?? `/cases/${c.slug}-before.jpg`,
+        after: c.after_url ?? `/cases/${c.slug}-after.jpg`,
+      }))
+    : [
+        { key: 'skin', before: '/cases/skin-before.jpg', after: '/cases/skin-after.jpg' },
+        { key: 'lips', before: '/cases/lips-before.jpg', after: '/cases/lips-after.jpg' },
+        { key: 'laser', before: '/cases/laser-before.jpg', after: '/cases/laser-after.jpg' },
+        { key: 'contour', before: '/cases/contour-before.jpg', after: '/cases/contour-after.jpg' },
+      ];
 
   const [active, setActive] = useState(0);
 
@@ -211,11 +226,11 @@ export default function BeforeAfter() {
               key={`title-${active}`}
             >
               <h3 className="font-display italic text-3xl md:text-4xl text-rose-gold mb-2">
-                {t(`cases.${current.key}.title`)}
+                {current.title ?? t(`cases.${current.key}.title`)}
               </h3>
               <div className="gold-divider w-20 mb-4" />
               <p className="text-gray-700 leading-relaxed font-light">
-                {t(`cases.${current.key}.description`)}
+                {current.description ?? t(`cases.${current.key}.description`)}
               </p>
             </motion.div>
 
@@ -242,7 +257,7 @@ export default function BeforeAfter() {
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="font-display text-lg text-gray-900">
-                      {t(`cases.${c.key}.title`)}
+                      {c.title ?? t(`cases.${c.key}.title`)}
                     </span>
                   </div>
                   <Sparkles

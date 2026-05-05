@@ -3,21 +3,28 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Instagram, Facebook, MessageCircle, Mail, Sparkles } from 'lucide-react';
+import type { SocialLinks } from '@/lib/supabase/types';
 
 interface FooterProps {
   locale: string;
+  logoMarkUrl?: string;
+  social?: SocialLinks;
 }
 
-export default function Footer({ locale }: FooterProps) {
+export default function Footer({
+  locale,
+  logoMarkUrl = '/logo-mark.svg',
+  social,
+}: FooterProps) {
   const t = useTranslations('footer');
   const navT = useTranslations('nav');
 
   const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: MessageCircle, href: '#', label: 'WhatsApp' },
-    { icon: Mail, href: 'mailto:info@drrehammohamed.com', label: 'Email' },
-  ];
+    { icon: Instagram, href: social?.instagram || '', label: 'Instagram' },
+    { icon: Facebook, href: social?.facebook || '', label: 'Facebook' },
+    { icon: MessageCircle, href: social?.whatsapp || '', label: 'WhatsApp' },
+    { icon: Mail, href: social?.email || 'mailto:info@drrehammohamed.com', label: 'Email' },
+  ].filter((s) => s.href);
 
   const quickLinks = [
     { label: navT('home'), href: `/${locale}#home` },
@@ -47,7 +54,7 @@ export default function Footer({ locale }: FooterProps) {
               <div className="w-14 h-14 flex items-center justify-center bg-white/95 rounded-full p-1 shadow-soft">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/logo-mark.svg"
+                  src={logoMarkUrl}
                   alt="Dr. Reham Mohamed"
                   className="w-full h-full object-contain"
                 />

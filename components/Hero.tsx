@@ -5,7 +5,11 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { Sparkles, Heart, Star, Flower2 } from 'lucide-react';
 
-export default function Hero() {
+interface HeroProps {
+  logoUrl?: string;
+}
+
+export default function Hero({ logoUrl = '/logo.svg' }: HeroProps) {
   const t = useTranslations('hero');
   const locale = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
@@ -95,7 +99,7 @@ export default function Hero() {
           <div className="relative w-44 h-44 md:w-56 md:h-56 flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logo.svg"
+              src={logoUrl}
               alt="Dr. Reham Mohamed"
               className="w-full h-full object-contain drop-shadow-[0_8px_24px_rgba(199,150,102,0.45)]"
             />
