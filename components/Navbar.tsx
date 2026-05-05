@@ -9,9 +9,10 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 interface NavbarProps {
   locale: string;
+  logoMarkUrl?: string;
 }
 
-export default function Navbar({ locale }: NavbarProps) {
+export default function Navbar({ locale, logoMarkUrl = '/logo-mark.svg' }: NavbarProps) {
   const t = useTranslations('nav');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -51,7 +52,7 @@ export default function Navbar({ locale }: NavbarProps) {
               <div className="relative w-11 h-11 flex items-center justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/logo-mark.svg"
+                  src={logoMarkUrl}
                   alt="Dr. Reham Mohamed"
                   className="w-full h-full object-contain drop-shadow-[0_2px_6px_rgba(199,150,102,0.35)]"
                 />

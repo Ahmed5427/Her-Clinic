@@ -3,9 +3,18 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import { toast } from 'sonner';
+import { submitContactForm } from '@/app/admin/_actions/submissions';
+import type { ContactInfo, WorkingHours } from '@/lib/supabase/types';
 
-export default function Contact() {
+interface ContactProps {
+  locale: string;
+  contact?: ContactInfo;
+  hours?: WorkingHours;
+}
+
+export default function Contact({ locale, contact, hours }: ContactProps) {
   const t = useTranslations('contact');
   const [formData, setFormData] = useState({
     name: '',
@@ -14,17 +23,41 @@ export default function Contact() {
     service: '',
     message: '',
   });
+  const [pending, startTransition] = useTransition();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    alert(t('thankYou'));
-  };
+    const fd = new FormData();
+    Object.entries(formData).forEach(([k, v]) => fd.set(k, v));
+    fd.set('locale', locale);
+
+    startTransition(async () => {
+      const result = await submitContactForm(fd);
+      if (!result.ok) {
+        toast.error(result.error ?? 'Submission failed.');
+        return;
+      }
+      toast.success(t('thankYou'));
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+    });
+  }
+
+  const phone = contact?.phone ?? '+20 123 456 7890';
+  const email = contact?.email ?? 'info@drrehammohamed.com';
+  const location =
+    locale === 'ar'
+      ? contact?.location_ar ?? 'القاهرة، مصر'
+      : contact?.location_en ?? 'Cairo, Egypt';
+  const hoursValue =
+    locale === 'ar'
+      ? hours?.ar ?? t('hoursValue')
+      : hours?.en ?? t('hoursValue');
 
   const contactInfo = [
-    { icon: MapPin, label: t('location'), value: t('locationValue') },
-    { icon: Phone, label: t('phone'), value: '+20 123 456 7890' },
-    { icon: Mail, label: t('email'), value: 'info@drrehammohamed.com' },
-    { icon: Clock, label: t('hours'), value: t('hoursValue') },
+    { icon: MapPin, label: t('location'), value: location },
+    { icon: Phone, label: t('phone'), value: phone },
+    { icon: Mail, label: t('email'), value: email },
+    { icon: Clock, label: t('hours'), value: hoursValue },
   ];
 
   const inputCls =
@@ -75,6 +108,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className={inputCls}
+                    disabled={pending}
                   />
                 </div>
                 <div>
@@ -83,10 +117,10 @@ export default function Contact() {
                   </label>
                   <input
                     type="tel"
-                    required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className={inputCls}
+                    disabled={pending}
                   />
                 </div>
               </div>
@@ -101,6 +135,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className={inputCls}
+                  disabled={pending}
                 />
               </div>
 
@@ -109,10 +144,10 @@ export default function Contact() {
                   {t('service')}
                 </label>
                 <select
-                  required
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className={inputCls}
+                  disabled={pending}
                 >
                   <option value="">{t('selectService')}</option>
                   <option value="skincare">{t('options.skincare')}</option>
@@ -133,17 +168,19 @@ export default function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className={`${inputCls} resize-none`}
+                  disabled={pending}
                 />
               </div>
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: pending ? 1 : 1.02 }}
+                whileTap={{ scale: pending ? 1 : 0.98 }}
                 className="btn-primary w-full"
+                disabled={pending}
               >
                 <Send className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                {t('send')}
+                {pending ? '…' : t('send')}
               </motion.button>
             </form>
           </motion.div>

@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --admin-bg: #f7f5f1;
+  --admin-card: #ffffff;
+  --admin-ink: #1c1a17;
+  --admin-muted: #6b6660;
+  --admin-line: #e7e1d6;
+  --admin-accent: #b04632;
+  --admin-gold: #b8893a;
+}
+
+@layer base {
+  body.admin {
+    @apply bg-[var(--admin-bg)] text-[var(--admin-ink)] antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-image: none;
+  }
+}
+
+@layer components {
+  .admin-card {
+    @apply bg-white rounded-2xl border border-[var(--admin-line)] shadow-[0_1px_2px_rgba(28,26,23,0.04)];
+  }
+  .admin-input {
+    @apply w-full px-4 py-2.5 rounded-xl bg-white border border-[var(--admin-line)] focus:border-[var(--admin-gold)] focus:outline-none focus:ring-2 transition-colors;
+    --tw-ring-color: rgba(184, 137, 58, 0.2);
+  }
+  .admin-btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .admin-btn-primary {
+    @apply admin-btn bg-[var(--admin-ink)] text-white hover:bg-[var(--admin-accent)];
+  }
+  .admin-btn-secondary {
+    @apply admin-btn border border-[var(--admin-line)] bg-white hover:border-[var(--admin-ink)];
+  }
+  .admin-btn-danger {
+    @apply admin-btn border border-rose-200 text-rose-700 bg-white hover:bg-rose-50;
+  }
+  .admin-label {
+    @apply block text-xs uppercase tracking-[0.16em] text-[var(--admin-muted)] mb-1.5 font-medium;
+  }
+  .admin-table {
+    @apply w-full text-sm;
+  }
+  .admin-table th {
+    @apply text-left text-xs uppercase tracking-[0.12em] text-[var(--admin-muted)] font-medium py-3 px-4 border-b border-[var(--admin-line)];
+  }
+  .admin-table td {
+    @apply py-3 px-4 border-b border-[var(--admin-line)] align-top;
+  }
+  .admin-pill {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium uppercase tracking-wider;
+  }
+  .admin-pill-new { @apply bg-blue-50 text-blue-700; }
+  .admin-pill-contacted { @apply bg-emerald-50 text-emerald-700; }
+  .admin-pill-archived { @apply bg-stone-100 text-stone-600; }
+  .admin-pill-published { @apply bg-emerald-50 text-emerald-700; }
+  .admin-pill-draft { @apply bg-amber-50 text-amber-700; }
+}

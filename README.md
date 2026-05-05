@@ -1,117 +1,106 @@
-# Her Clinic - Health and Wellness Website
+# Her Clinic — Dr. Reham Mohamed
 
-A beautiful, animated bilingual website for Dr. Reham Mohamed's beauty and wellness clinic.
+A bilingual (EN/AR) luxury beauty clinic website with a built-in admin
+dashboard, Supabase backend, and analytics.
 
-## Features
+## Stack
 
-- ✨ Beautiful animations using Framer Motion
-- 🌐 Bilingual support (English & Arabic) with next-intl
-- 🎨 Elegant design with custom pink/rose color palette
-- 📱 Fully responsive design
-- ⚡ Built with Next.js 14 and TypeScript
-- 🎯 Optimized for Vercel deployment
+- **Framework**: Next.js 14 App Router + TypeScript
+- **Styling**: Tailwind CSS, Cormorant Garamond + Cairo, custom rose-gold palette
+- **Animation**: Framer Motion + Lenis smooth scroll
+- **i18n**: next-intl (EN, AR)
+- **Backend**: Supabase (Postgres, Auth, Storage)
+- **Analytics**: Vercel Analytics + an internal `page_visits` table
+- **Charts**: Recharts
 
-## Tech Stack
+## Project setup
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Internationalization**: next-intl
-- **Icons**: Lucide React
-- **Fonts**: Playfair Display, Inter, Tajawal
+### 1. Install
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ installed
-- npm or yarn package manager
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd Her-Clinic
-```
-
-2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Run the development server:
+### 2. Configure Supabase
+
+Set these on Vercel **and** in `.env.local`:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxxxxxxxxxxxxxxxxxxxxxx
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOi...   # required for image uploads + analytics
+ANALYTICS_SECRET=<random-32+chars>        # optional, hardens session-hash salt
+```
+
+> **Note:** if you previously added `anonpublic` as a stray Vercel env var,
+> delete it. We standardize on `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+
+### 3. Apply the database schema
+
+In the Supabase SQL editor, run these in order:
+
+1. `supabase/migrations/0001_init.sql` — schema, RLS, storage buckets
+2. `supabase/seed.sql` — initial cases (unpublished), services, testimonials, settings
+
+### 4. Create your admin
+
+In **Supabase Dashboard → Authentication → Users**, click *Add user* and set
+an email + password.
+
+Then in the SQL editor, promote that user to admin:
+
+```sql
+update profiles set role='admin' where email='you@example.com';
+```
+
+### 5. Run
+
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+Public site lives at `http://localhost:3000/en` (or `/ar`).
+Admin lives at `http://localhost:3000/admin`.
 
-## Available Scripts
+## What the admin can do
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint
+- **Submissions** — view, filter, search, mark contacted, add notes, delete, CSV export.
+- **Analytics** — daily traffic, top pages, locales, referrers, devices, peak hours.
+- **Before/After cases** — create, edit EN+AR copy, upload before/after images, reorder, publish.
+- **Services** & **Testimonials** — same CRUD + publish flow.
+- **Branding** — replace `logo.svg` and `logo-mark.svg` (instantly reflected on the site).
+- **Settings** — contact info, working hours, social links.
+
+## Project layout
+
+```
+app/
+  [locale]/      # bilingual public site
+  admin/         # admin dashboard (LTR English, gated by Supabase Auth)
+    _actions/    # Server Actions (auth, submissions, cases, services, …)
+    content/     # CRUD pages
+    submissions/ analytics/ settings/
+  api/
+    track/route.ts                       # POST /api/track  (analytics)
+    admin/submissions/export/route.ts    # GET CSV export
+components/
+  admin/         # admin UI components
+  *.tsx          # public site components
+lib/
+  supabase/      # browser, server, admin clients + types
+  auth.ts        # requireAdmin, getProfile
+  site-data.ts   # public RSC data fetchers (with translation fallback)
+  validators.ts  # zod schemas
+  hash.ts ua.ts utils.ts csv.ts
+supabase/
+  migrations/0001_init.sql
+  seed.sql
+```
 
 ## Deployment
 
-This project is optimized for deployment on [Vercel](https://vercel.com):
-
-1. Push your code to GitHub
-2. Import your repository in Vercel
-3. Deploy!
-
-The site will automatically deploy on every push to your main branch.
-
-## Customization
-
-### Colors
-
-Edit the color palette in `tailwind.config.ts`:
-- Primary: Pink/Rose tones
-- Gold: Accent colors
-- Customize gradients and effects
-
-### Content
-
-Edit translations in:
-- `messages/en.json` - English content
-- `messages/ar.json` - Arabic content
-
-### Fonts
-
-Fonts are configured in `app/[locale]/layout.tsx`
-
-## Structure
-
-```
-Her-Clinic/
-├── app/
-│   ├── [locale]/        # Internationalized pages
-│   ├── layout.tsx       # Root layout
-│   └── globals.css      # Global styles
-├── components/          # React components
-│   ├── Navbar.tsx
-│   ├── Hero.tsx
-│   ├── About.tsx
-│   ├── Services.tsx
-│   ├── Contact.tsx
-│   └── Footer.tsx
-├── messages/           # Translation files
-│   ├── en.json
-│   └── ar.json
-└── public/            # Static assets
-
-```
-
-## License
-
-© 2024 Her Clinic. All rights reserved.
-
-## Contact
-
-For questions or support, please contact:
-- Email: info@herclinic.com
-- Website: [herclinic.com](https://herclinic.com)
+1. Push to GitHub.
+2. Import the repo in Vercel.
+3. Set the env vars in Step 2 above.
+4. Deploy. Vercel Analytics auto-records Web Vitals; the in-DB `page_visits`
+   table fills as visitors browse and powers the admin charts.

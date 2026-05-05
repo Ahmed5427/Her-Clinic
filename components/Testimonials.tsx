@@ -1,19 +1,52 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Quote, Star } from 'lucide-react';
+import type { TestimonialRow } from '@/lib/supabase/types';
 
-export default function Testimonials() {
+interface TestimonialsProps {
+  testimonials?: TestimonialRow[];
+}
+
+interface Item {
+  quote: string;
+  name: string;
+  role: string;
+  rating: number;
+}
+
+export default function Testimonials({ testimonials = [] }: TestimonialsProps) {
   const t = useTranslations('testimonials');
-  const items = ['one', 'two', 'three'] as const;
+  const locale = useLocale();
   const [active, setActive] = useState(0);
 
+  const items = useMemo<Item[]>(() => {
+    if (testimonials.length > 0) {
+      return testimonials.map((row) => ({
+        quote: locale === 'ar' ? row.quote_ar : row.quote_en,
+        name: row.name,
+        role: (locale === 'ar' ? row.role_ar : row.role_en) ?? '',
+        rating: row.rating,
+      }));
+    }
+    return (['one', 'two', 'three'] as const).map((k) => ({
+      quote: t(`items.${k}.quote`),
+      name: t(`items.${k}.name`),
+      role: t(`items.${k}.role`),
+      rating: 5,
+    }));
+  }, [testimonials, locale, t]);
+
   useEffect(() => {
+    if (items.length <= 1) return;
     const id = setInterval(() => setActive((p) => (p + 1) % items.length), 6000);
     return () => clearInterval(id);
   }, [items.length]);
+
+  if (items.length === 0) return null;
+  const current = items[active] ?? items[0];
 
   return (
     <section className="relative py-28 overflow-hidden">
@@ -49,20 +82,18 @@ export default function Testimonials() {
             >
               <Quote className="w-10 h-10 text-rose-300 mx-auto mb-4" />
               <p className="font-display italic text-xl md:text-2xl text-gray-800 leading-relaxed max-w-3xl mx-auto">
-                “{t(`items.${items[active]}.quote`)}”
+                “{current.quote}”
               </p>
               <div className="flex items-center justify-center gap-1 mt-6 text-gold-500">
-                {[...Array(5)].map((_, i) => (
+                {Array.from({ length: current.rating }).map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
               <div className="mt-4">
-                <div className="font-display text-lg text-rose-gold">
-                  {t(`items.${items[active]}.name`)}
-                </div>
-                <div className="text-xs uppercase tracking-[0.3em] text-gold-700 mt-1">
-                  {t(`items.${items[active]}.role`)}
-                </div>
+                <div className="font-display text-lg text-rose-gold">{current.name}</div>
+                {current.role ? (
+                  <div className="text-xs uppercase tracking-[0.3em] text-gold-700 mt-1">{current.role}</div>
+                ) : null}
               </div>
             </motion.div>
           </AnimatePresence>

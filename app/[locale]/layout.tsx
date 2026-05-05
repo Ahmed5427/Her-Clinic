@@ -1,10 +1,15 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from 'sonner';
 import { locales } from '@/i18n';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
+import { getSiteSettings } from '@/lib/site-data';
+import '../globals.css';
 
 export default async function LocaleLayout({
   children,
@@ -18,6 +23,7 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const settings = await getSiteSettings();
   const isRTL = locale === 'ar';
 
   return (
@@ -36,10 +42,17 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <SmoothScroll />
-          <Navbar locale={locale} />
+          <AnalyticsTracker locale={locale} />
+          <Navbar locale={locale} logoMarkUrl={settings.branding.logo_mark_url} />
           <main>{children}</main>
-          <Footer locale={locale} />
+          <Footer
+            locale={locale}
+            logoMarkUrl={settings.branding.logo_mark_url}
+            social={settings.social_links}
+          />
         </NextIntlClientProvider>
+        <Toaster position="bottom-right" richColors closeButton />
+        <Analytics />
       </body>
     </html>
   );
