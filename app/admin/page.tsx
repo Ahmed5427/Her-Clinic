@@ -107,6 +107,7 @@ export default async function AdminOverview() {
             View all <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
         </div>
+        <div className="overflow-x-auto">
         <table className="admin-table">
           <thead>
             <tr>
@@ -142,6 +143,7 @@ export default async function AdminOverview() {
             )}
           </tbody>
         </table>
+        </div>
       </section>
     </div>
   );
